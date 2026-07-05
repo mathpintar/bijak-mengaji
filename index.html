@@ -282,6 +282,19 @@
 
     <!-- JAVASCRIPT LOGIC & BANK SOALAN -->
     <script>
+        // Andaikan 'soalan' adalah objek soalan yang dipilih
+const soalan = BANK_SOALAN.nombor_bulat.questions[0]; 
+
+// 1. Salin pilihan jawapan supaya tidak mengubah data asal dalam BANK_SOALAN
+let pilihanJawapan = [...soalan.a];
+
+// 2. Acak pilihan jawapan tersebut
+pilihanJawapan = shuffleArray(pilihanJawapan);
+
+// 3. Sekarang, paparkan 'pilihanJawapan' pada UI anda.
+// Jawapan betul tetap 'soalan.c'. 
+// Anda boleh semak jawapan pengguna dengan membandingkan nilai yang ditekan 
+// dengan 'soalan.c'.
         // 1. Fungsi untuk mengocok (shuffle) apa-apa array
 function shuffleArray(array) {
     let arr = [...array]; // Buat salinan agar data asal tidak terjejas
