@@ -282,6 +282,31 @@
 
     <!-- JAVASCRIPT LOGIC & BANK SOALAN -->
     <script>
+        // 1. Fungsi untuk mengocok (shuffle) apa-apa array
+function shuffleArray(array) {
+    let arr = [...array]; // Buat salinan agar data asal tidak terjejas
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
+// 2. Gunakan fungsi ini semasa anda memproses soalan
+// Contoh: Jika anda ada fungsi 'paparSoalan'
+function paparSoalan(soalanObjek) {
+    // KOCOK PILIHAN JAWAPAN DI SINI
+    const pilihanRawak = shuffleArray(soalanObjek.a);
+    
+    // Sekarang gunakan 'pilihanRawak' untuk bina butang/pilihan anda
+    pilihanRawak.forEach(jawapan => {
+        // Contoh: bina butang atau radio button
+        // console.log("Pilihan: " + jawapan);
+        
+        // PENTING: Untuk semak jawapan, bandingkan dengan soalanObjek.c
+        // JANGAN bandingkan dengan index (contoh: jawapan[1])
+    });
+}
         // Andaikan 'kategori' adalah "nombor_bulat"
 function startQuiz(kategori) {
     // 1. Ambil salinan soalan agar data asal tidak berubah
