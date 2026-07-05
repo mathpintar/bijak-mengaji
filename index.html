@@ -282,6 +282,23 @@
 
     <!-- JAVASCRIPT LOGIC & BANK SOALAN -->
     <script>
+        // Andaikan 'kategori' adalah "nombor_bulat"
+function startQuiz(kategori) {
+    // 1. Ambil salinan soalan agar data asal tidak berubah
+    let soalanSet = [...BANK_SOALAN[kategori].questions];
+
+    // 2. Shuffle turutan soalan
+    soalanSet = shuffle(soalanSet);
+
+    // 3. Untuk setiap soalan dalam set tersebut, shuffle pilihan jawapan (a)
+    soalanSet.forEach(item => {
+        item.a = shuffle([...item.a]);
+    });
+
+    // 4. Sekarang gunakan 'soalanSet' ini untuk dipaparkan dalam UI anda
+    // Soalan akan berubah kedudukan, dan jawapan dalam soalan pun akan rawak!
+    renderKuiz(soalanSet);
+}
         // Fungsi untuk menyusun array secara rawak (Fisher-Yates Shuffle)
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
