@@ -282,6 +282,18 @@
 
     <!-- JAVASCRIPT LOGIC & BANK SOALAN -->
     <script>
+        // Fungsi bantuan untuk rawak array
+const shuffle = arr => [...arr].sort(() => Math.random() - 0.5);
+
+// Fungsi untuk mengacak jawapan dwibahasa (ms & en) secara sejajar
+const shuffleBilingual = (msArr, enArr) => {
+  const combined = msArr.map((ms, i) => ({ ms, en: enArr[i] }));
+  const shuffled = shuffle(combined);
+  return {
+    ms: shuffled.map(item => item.ms),
+    en: shuffled.map(item => item.en)
+  };
+};
         // 1. Fungsi untuk mengocok (shuffle) apa-apa array
 function shuffleArray(array) {
     let arr = [...array]; // Buat salinan agar data asal tidak terjejas
@@ -463,27 +475,27 @@ function getSoalanRawak(kategori, index) {
                 title: { ms: "Nombor Bulat", en: "Whole Numbers" }, icon: "🔢", 
                 badge: { ms: "🔢 Raja Nombor", en: "🔢 Number King" },
                 questions: [
-                    { q: { ms: "Apakah nombor selepas 398?", en: "What is the number after 398?" }, a: ["397", "399", "400", "401"], c: "399" },
-                    { q: { ms: "Apakah nombor sebelum 620?", en: "What is the number before 620?" }, a: ["618", "619", "621", "622"], c: "619" },
-                    { q: { ms: "Tujuh ratus empat puluh lima ditulis dalam angka ialah", en: "Seven hundred and forty-five written in numerals is" }, a: ["754", "745", "705", "475"], c: "745" },
-                    { q: { ms: "908 ditulis dalam perkataan ialah", en: "908 written in words is" }, a: { ms: ["Sembilan ratus lapan", "Sembilan ratus lapan puluh", "Lapan ratus sembilan", "Sembilan puluh lapan"], en: ["Nine hundred and eight", "Nine hundred and eighty", "Eight hundred and nine", "Ninety-eight"] }, c: { ms: "Sembilan ratus lapan", en: "Nine hundred and eight" } },
-                    { q: { ms: "Apakah nilai tempat bagi digit 5 dalam nombor 652?", en: "What is the place value of digit 5 in the number 652?" }, a: { ms: ["Sa", "Puluh", "Ratus", "Ribu"], en: ["Ones", "Tens", "Hundreds", "Thousands"] }, c: { ms: "Puluh", en: "Tens" } },
-                    { q: { ms: "Apakah nilai digit bagi digit 7 dalam nombor 731?", en: "What is the digit value of digit 7 in the number 731?" }, a: ["7", "70", "700", "701"], c: "700" },
-                    { q: { ms: "Cerakinan nilai digit yang betul bagi 483 ialah", en: "The correct digit value partitioning for 483 is" }, a: ["400 + 80 + 3", "40 + 80 + 3", "400 + 8 + 3", "4 + 80 + 3"], c: "400 + 80 + 3" },
-                    { q: { ms: "Yang manakah nombor paling besar?", en: "Which number is the largest?" }, a: ["567", "576", "657", "675"], c: "675" },
-                    { q: { ms: "Susunan nombor secara menaik yang betul ialah", en: "The correct ascending order of numbers is" }, a: ["482, 428, 824, 248", "248, 428, 482, 824", "824, 482, 428, 248", "428, 248, 482, 824"], c: "248, 428, 482, 824" },
-                    { q: { ms: "Susunan nombor secara menurun yang betul ialah", en: "The correct descending order of numbers is" }, a: ["309, 390, 903, 930", "930, 903, 390, 309", "903, 930, 390, 309", "390, 309, 930, 903"], c: "930, 903, 390, 309" },
-                    { q: { ms: "Bundarkan 468 kepada ratus terdekat.", en: "Round off 468 to the nearest hundred." }, a: ["400", "450", "500", "470"], c: "500" },
-                    { q: { ms: "Bundarkan 823 kepada ratus terdekat.", en: "Round off 823 to the nearest hundred." }, a: ["800", "820", "900", "830"], c: "800" },
-                    { q: { ms: "Apakah nombor yang hilang?<br><br>250, 260, 270, ___, 290", en: "What is the missing number?<br><br>250, 260, 270, ___, 290" }, a: ["275", "280", "285", "300"], c: "280" },
-                    { q: { ms: "Lengkapkan pola nombor.<br><br>615, 620, 625, ___, 635", en: "Complete the number pattern.<br><br>615, 620, 625, ___, 635" }, a: ["626", "628", "630", "640"], c: "630" },
-                    { q: { ms: "Yang manakah lebih kecil?", en: "Which one is smaller?" }, a: ["719", "791", "697", "769"], c: "697" },
-                    { q: { ms: "Antara berikut, yang manakah mempunyai 8 ratus?", en: "Which of the following has 8 hundreds?" }, a: ["689", "798", "845", "782"], c: "845" },
-                    { q: { ms: "Berapakah bilangan ratus dalam nombor 936?", en: "How many hundreds are there in the number 936?" }, a: ["3", "6", "9", "36"], c: "9" },
-                    { q: { ms: "Pilih pernyataan yang betul.", en: "Choose the correct statement." }, a: ["582 > 625", "746 < 674", "908 > 890", "399 > 493"], c: "908 > 890" },
-                    { q: { ms: "Apakah nombor yang terbentuk daripada 5 ratus, 2 puluh dan 8 sa?", en: "What number is formed from 5 hundreds, 2 tens and 8 ones?" }, a: ["258", "528", "582", "852"], c: "528" },
-                    { q: { ms: "Pilih nombor yang berada di antara 699 dan 701.", en: "Choose the number that lies between 699 and 701." }, a: ["698", "700", "702", "710"], c: "700" }
-                ]
+                    { q: { ms: "Apakah nombor selepas 398?", en: "What is the number after 398?" }, a: shuffle(["397", "399", "400", "401"]), c: "399" },
+  { q: { ms: "Apakah nombor sebelum 620?", en: "What is the number before 620?" }, a: shuffle(["618", "619", "621", "622"]), c: "619" },
+  { q: { ms: "Tujuh ratus empat puluh lima ditulis dalam angka ialah", en: "Seven hundred and forty-five written in numerals is" }, a: shuffle(["754", "745", "705", "475"]), c: "745" },
+  { q: { ms: "908 ditulis dalam perkataan ialah", en: "908 written in words is" }, a: shuffleBilingual(["Sembilan ratus lapan", "Sembilan ratus lapan puluh", "Lapan ratus sembilan", "Sembilan puluh lapan"], ["Nine hundred and eight", "Nine hundred and eighty", "Eight hundred and nine", "Ninety-eight"]), c: { ms: "Sembilan ratus lapan", en: "Nine hundred and eight" } },
+  { q: { ms: "Apakah nilai tempat bagi digit 5 dalam nombor 652?", en: "What is the place value of digit 5 in the number 652?" }, a: shuffleBilingual(["Sa", "Puluh", "Ratus", "Ribu"], ["Ones", "Tens", "Hundreds", "Thousands"]), c: { ms: "Puluh", en: "Tens" } },
+  { q: { ms: "Apakah nilai digit bagi digit 7 dalam nombor 731?", en: "What is the digit value of digit 7 in the number 731?" }, a: shuffle(["7", "70", "700", "701"]), c: "700" },
+  { q: { ms: "Cerakinan nilai digit yang betul bagi 483 ialah", en: "The correct digit value partitioning for 483 is" }, a: shuffle(["400 + 80 + 3", "40 + 80 + 3", "400 + 8 + 3", "4 + 80 + 3"]), c: "400 + 80 + 3" },
+  { q: { ms: "Yang manakah nombor paling besar?", en: "Which number is the largest?" }, a: shuffle(["567", "576", "657", "675"]), c: "675" },
+  { q: { ms: "Susunan nombor secara menaik yang betul ialah", en: "The correct ascending order of numbers is" }, a: shuffle(["482, 428, 824, 248", "248, 428, 482, 824", "824, 482, 428, 248", "428, 248, 482, 824"]), c: "248, 428, 482, 824" },
+  { q: { ms: "Susunan nombor secara menurun yang betul ialah", en: "The correct descending order of numbers is" }, a: shuffle(["309, 390, 903, 930", "930, 903, 390, 309", "903, 930, 390, 309", "390, 309, 930, 903"]), c: "930, 903, 390, 309" },
+  { q: { ms: "Bundarkan 468 kepada ratus terdekat.", en: "Round off 468 to the nearest hundred." }, a: shuffle(["400", "450", "500", "470"]), c: "500" },
+  { q: { ms: "Bundarkan 823 kepada ratus terdekat.", en: "Round off 823 to the nearest hundred." }, a: shuffle(["800", "820", "900", "830"]), c: "800" },
+  { q: { ms: "Apakah nombor yang hilang?<br><br>250, 260, 270, ___, 290", en: "What is the missing number?<br><br>250, 260, 270, ___, 290" }, a: shuffle(["275", "280", "285", "300"]), c: "280" },
+  { q: { ms: "Lengkapkan pola nombor.<br><br>615, 620, 625, ___, 635", en: "Complete the number pattern.<br><br>615, 620, 625, ___, 635" }, a: shuffle(["626", "628", "630", "640"]), c: "630" },
+  { q: { ms: "Yang manakah lebih kecil?", en: "Which one is smaller?" }, a: shuffle(["719", "791", "697", "769"]), c: "697" },
+  { q: { ms: "Antara berikut, yang manakah mempunyai 8 ratus?", en: "Which of the following has 8 hundreds?" }, a: shuffle(["689", "798", "845", "782"]), c: "845" },
+  { q: { ms: "Berapakah bilangan ratus dalam nombor 936?", en: "How many hundreds are there in the number 936?" }, a: shuffle(["3", "6", "9", "36"]), c: "9" },
+  { q: { ms: "Pilih pernyataan yang betul.", en: "Choose the correct statement." }, a: shuffle(["582 > 625", "746 < 674", "908 > 890", "399 > 493"]), c: "908 > 890" },
+  { q: { ms: "Apakah nombor yang terbentuk daripada 5 ratus, 2 puluh dan 8 sa?", en: "What number is formed from 5 hundreds, 2 tens and 8 ones?" }, a: shuffle(["258", "528", "582", "852"]), c: "528" },
+  { q: { ms: "Pilih nombor yang berada di antara 699 dan 701.", en: "Choose the number that lies between 699 and 701." }, a: shuffle(["698", "700", "702", "710"]), c: "700" }
+];
             },
             tambah: {
                 title: { ms: "Tambah", en: "Addition" }, icon: "➕", 
